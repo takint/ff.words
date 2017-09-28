@@ -19,4 +19,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ff.words.application\ff.words.application.csproj" />
+    <ProjectReference Include="..\ff.words.ioc\ff.words.ioc.csproj" />
+  </ItemGroup>
+
 </Project>

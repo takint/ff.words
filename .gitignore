@@ -4,3 +4,6 @@ ff.words.data/bin/
 ff.words.data/obj/
 ff.words/bin/
 ff.words/obj/
+ff.words.ioc/obj/
+ff.words.ioc/bin/
+.vs/
