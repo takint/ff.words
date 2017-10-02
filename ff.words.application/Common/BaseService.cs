@@ -4,8 +4,10 @@
     using ff.words.data.Interfaces;
     using ff.words.data.Models;
     using global::AutoMapper;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
 
     public class BaseService<TModel>
@@ -17,11 +19,11 @@
 
         public BaseService(IUnitOfWork unitOfWork,
             IMapper mapper,
-            IRepository<TModel> entryRepository)
+            IRepository<TModel> repository)
         {
             UoW = unitOfWork;
             Mapper = mapper;
-            Repository = entryRepository;
+            Repository = repository;
         }
 
         public void Dispose()
@@ -67,56 +69,42 @@
 
         public async Task<TViewModel> GetByIdAsync<TViewModel>(int id) where TViewModel : BaseViewModel
         {
-            var model = await this.Repository.GetAsync(id, true);
+            var model = await this.Repository.GetByIdAsync(id);
 
             return this.Mapper.Map<TViewModel>(model);
         }
 
-        public virtual async Task<ListResponseModel<TViewModel>> ListAsync<TViewModel>(BaseListRequestModel request) where TViewModel : BaseViewModel
+        public virtual async Task<ListResponseModel<TViewModel>> ListAsync<TViewModel>(ListRequestModel request) where TViewModel : BaseViewModel
         {
             return await this.ListAsync<TViewModel>(request, null);
         }
 
-        public virtual async Task<ListResponseModel<TViewModel>> ListAsync<TViewModel>(BaseListRequestModel request, Expression<Func<TModel, bool>> customFilter = null) where TViewModel : BaseViewModel
+        public virtual async Task<ListResponseModel<TViewModel>> ListAsync<TViewModel>(ListRequestModel request, Expression<Func<TModel, bool>> customFilter = null) where TViewModel : BaseViewModel
         {
-            var state = JsonConvert.DeserializeObject<StateRequestModel>(request.State);
+            //var filter = new Filter<TModel>(state.Filter, this.Repository.FilterMaps);
+            //if (customFilter != null)
+            //{
+            //    filter.AddExpression(customFilter);
+            //}
+            //var orderby = new OrderBy<TModel>(state.Sort, this.Repository.OrderByColumnMaps);
 
-            if (state.ShowDeleted.HasValue)
-            {
-                state.Filter = state.Filter ?? new FilterRequest();
+            //var recordCount = await this.Repository.CountAsync(filter.Expression);
 
-                state.Filter.Filters.Insert(0,
-                    new FilterDetail()
-                    {
-                        Field = "Deleted",
-                        Operator = "eq",
-                        Value = state.ShowDeleted.Value.ToString()
-                    });
-            }
+            //var response = new ListResponseModel<TViewModel>
+            //{
+            //    RecordCount = recordCount,
+            //    ListResult = new List<TViewModel>()
+            //};
 
-            var filter = new Filter<TModel>(state.Filter, this.Repository.FilterMaps);
-            if (customFilter != null)
-            {
-                filter.AddExpression(customFilter);
-            }
-            var orderby = new OrderBy<TModel>(state.Sort, this.Repository.OrderByColumnMaps);
+            //if (recordCount > 0)
+            //{
+            //    var models = await this.Repository.QueryPageAsync(state.Skip, state.Take, filter.Expression, orderby.Expression, true);
 
-            var recordCount = await this.Repository.CountAsync(filter.Expression);
+            //    response.ListResult = this.Mapper.Map<IEnumerable<TViewModel>>(models);
+            //}
 
-            var response = new ListResponseModel<TViewModel>
-            {
-                RecordCount = recordCount,
-                ListResult = new List<TViewModel>()
-            };
-
-            if (recordCount > 0)
-            {
-                var models = await this.Repository.QueryPageAsync(state.Skip, state.Take, filter.Expression, orderby.Expression, true);
-
-                response.ListResult = this.Mapper.Map<IEnumerable<TViewModel>>(models);
-            }
-
-            return response;
+            //return response;
+            throw new NotImplementedException();
         }
 
         public virtual async Task<TViewModel> UpdateAsync<TViewModel>(TViewModel viewModel) where TViewModel : BaseViewModel
@@ -128,118 +116,23 @@
             var error = await this.ValidateDatabaseBeforeAddOrUpdateAsync(model);
             if (!string.IsNullOrEmpty(error))
             {
-                throw new AppException(error);
+                throw new Exception(error);
             }
 
             this.Repository.Update(model);
-            await this.UnitOfWork.SaveChangesAsync();
+            await this.Repository.SaveChangesAsync();
 
-            this.OnEntityUpdated(model);
-
-            //model = await this.Repository.FindAsync(model.Id);
+            model = await this.Repository.GetByIdAsync(model.Id);
 
             viewModel = this.Mapper.Map<TViewModel>(model);
             return viewModel;
         }
 
-        /// <summary>
-        /// Changes life cycle status async
-        /// </summary>
-        /// <param name="rq">The request.</param>
-        /// <returns>
-        /// The <see cref="ChangeLifeCycleStatusResponse"/>.</returns>
-        public async Task<ChangeLifeCycleStatusResponse> ChangeLifeCycleStatusAsync(ChangeLifeCycleStatusRequest rq)
-        {
-            ChangeLifeCycleStatusResponse rs = null;
-
-            var model = await this.Repository.GetAsync(rq.Id, true);
-
-            if (model != null)
-            {
-                var errorMessage = await this.ValidateChangeLifeCycleStatusValidAsync(model, rq);
-
-                if (!string.IsNullOrEmpty(errorMessage))
-                {
-                    throw new AppException(errorMessage);
-                }
-
-                if (rq.IsDelete)
-                {
-                    model.Deleted = true;
-                }
-                else
-                {
-                    model.Inactivated = !model.Inactivated;
-                }
-
-                model.UpdatedDate = rq.UpdatedDate;
-                model.UpdatedUser = rq.UpdatedUser;
-
-                this.Repository.Update(model);
-
-                await OnLifeCycleStatusChangedAsync(model);
-
-                await this.UnitOfWork.SaveChangesAsync();
-
-                model = await this.Repository.FindAsync(model.Id);
-
-                rs = new ChangeLifeCycleStatusResponse
-                {
-                    LifeCycleStatusName = this.GetLifeCycleStatusName(model),
-                    Inactivated = model.Inactivated,
-                    Deleted = model.Deleted,
-                    RowVersion = ByteArrayConverter.ToString(model.RowVersion)
-                };
-            }
-
-            return rs;
-        }
-
-        protected virtual Task<string> ValidateChangeLifeCycleStatusValidAsync(TModel model, ChangeLifeCycleStatusRequest rq)
-        {
-            return Task.FromResult(string.Empty);
-        }
-
-        protected virtual Task OnLifeCycleStatusChangedAsync(TModel model)
-        {
-            return Task.CompletedTask;
-        }
+        
 
         protected virtual Task<string> ValidateDatabaseBeforeAddOrUpdateAsync(TModel model)
         {
             return Task.FromResult(string.Empty);
-        }
-
-        protected virtual void OnEntityCreated(TModel model)
-        {
-        }
-
-        protected virtual void OnEntityUpdated(TModel model)
-        {
-        }
-
-        protected virtual void OnEntityDeleted(int id)
-        {
-        }
-
-        private string GetLifeCycleStatusName(TModel model)
-        {
-            if (model.Deleted)
-            {
-                return AppResources.Deleted;
-            }
-
-            if (model.Inactivated)
-            {
-                return AppResources.Inactive;
-            }
-
-            if (model.Id > 0)
-            {
-                return AppResources.Active;
-            }
-
-            return string.Empty;
         }
     }
 }
