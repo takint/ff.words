@@ -7,6 +7,12 @@
 
     public class FFWordsContext : DbContext
     {
+
+        public FFWordsContext(DbContextOptions<FFWordsContext> options)
+            : base(options)
+        {
+        }
+
         DbSet<EntryModel> WordsEntries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

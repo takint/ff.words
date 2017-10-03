@@ -1,6 +1,7 @@
 ﻿namespace ff.words.application.Interfaces
 {
     using ff.words.application.Common;
+    using ff.words.application.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -18,5 +19,7 @@
         Task<ListResponseModel<TViewModel>> ListAsync<TViewModel>(ListRequestModel request) where TViewModel : BaseViewModel;
 
         Task<IEnumerable<TViewModel>> GetAllAsync<TViewModel>() where TViewModel : BaseViewModel;
+
+        Task<IEnumerable<EntryViewModel>> ListAsync(ListRequestModel request);
     }
 }

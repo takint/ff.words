@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using ff.words.application.Interfaces;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace ff.words.Controllers.Entry
+﻿namespace ff.words.Controllers.Entry
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using ff.words.application.Interfaces;
+    using ff.words.application.ViewModels;
+    using ff.words.application.Common;
+
+
     [Route("api/[controller]")]
     public class EntryController : BaseController
     {
@@ -21,9 +20,10 @@ namespace ff.words.Controllers.Entry
 
         [HttpGet]
         [Route("GetEntry")]
-        public IEnumerable<string> GetEntry()
+        public async Task<IActionResult> GetEntry()
         {
-            return new string[] { "value1", "value2" };
+            var result = await _entryService.ListAsync(new ListRequestModel());
+            return new JsonResult(result);
         }
     }
 }
