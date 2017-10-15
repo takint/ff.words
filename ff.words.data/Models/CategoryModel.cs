@@ -4,12 +4,12 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class EntryModel : BaseEntity
+    public class CategoryModel : BaseEntity
     {
         [MaxLength(512)]
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         [Column(TypeName = "ntext")]
-        public string Content { get; set; }
+        public string Description { get; set; }
     }
 }

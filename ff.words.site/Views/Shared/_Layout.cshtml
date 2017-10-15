@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FF Words</title>
+  <base href="/" />
+  <environment names="Development">
+    <link rel="stylesheet" href="@Url.Content("~/dist/assets/preloader.css")" asp-append-version="true" />
+  </environment>
+  <environment names="Production">
+    <link rel="stylesheet" href="@Url.Content("~/dist/site.min.css")" asp-append-version="true" />
+  </environment>
+</head>
+<body>
+  @RenderBody()
+
+  <environment names="Development">
+    <script type="text/javascript" src="@Url.Content("~/dist/inline.bundle.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/dist/polyfills.bundle.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/dist/styles.bundle.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/dist/vendor.bundle.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/dist/main.bundle.js")"></script>
+  </environment>
+  <environment names="Production">
+    <script type="text/javascript" src="@Url.Content("~/dist/site.min.js")" asp-append-version="true"></script>
+  </environment>
+
+  @RenderSection("scripts", required: false)
+</body>
+</html>

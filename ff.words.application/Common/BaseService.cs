@@ -63,23 +63,23 @@
 
         public async Task<IEnumerable<TViewModel>> GetAllAsync<TViewModel>() where TViewModel : BaseViewModel
         {
-            var models = await this.Repository.GetAllAsync();
-            return this.Mapper.Map<IEnumerable<TViewModel>>(models);
+            var models = await Repository.GetAllAsync();
+            return Mapper.Map<IEnumerable<TViewModel>>(models);
         }
 
         public async Task<TViewModel> GetByIdAsync<TViewModel>(int id) where TViewModel : BaseViewModel
         {
-            var model = await this.Repository.GetByIdAsync(id);
+            var model = await Repository.GetByIdAsync(id);
 
-            return this.Mapper.Map<TViewModel>(model);
+            return Mapper.Map<TViewModel>(model);
         }
 
         public virtual async Task<ListResponseModel<TViewModel>> ListAsync<TViewModel>(ListRequestModel request) where TViewModel : BaseViewModel
         {
-            return await this.ListAsync<TViewModel>(request, null);
+            return await ListAsync<TViewModel>(request, null);
         }
 
-        public virtual async Task<ListResponseModel<TViewModel>> ListAsync<TViewModel>(ListRequestModel request, Expression<Func<TModel, bool>> customFilter = null) where TViewModel : BaseViewModel
+        public virtual Task<ListResponseModel<TViewModel>> ListAsync<TViewModel>(ListRequestModel request, Expression<Func<TModel, bool>> customFilter = null) where TViewModel : BaseViewModel
         {
             //var filter = new Filter<TModel>(state.Filter, this.Repository.FilterMaps);
             //if (customFilter != null)
@@ -111,20 +111,20 @@
         {
             viewModel.ValidateAndThrow();
 
-            var model = this.Mapper.Map<TModel>(viewModel);
+            var model = Mapper.Map<TModel>(viewModel);
 
-            var error = await this.ValidateDatabaseBeforeAddOrUpdateAsync(model);
+            var error = await ValidateDatabaseBeforeAddOrUpdateAsync(model);
             if (!string.IsNullOrEmpty(error))
             {
                 throw new Exception(error);
             }
 
-            this.Repository.Update(model);
-            await this.Repository.SaveChangesAsync();
+            Repository.Update(model);
+            await Repository.SaveChangesAsync();
 
-            model = await this.Repository.GetByIdAsync(model.Id);
+            model = await Repository.GetByIdAsync(model.Id);
 
-            viewModel = this.Mapper.Map<TViewModel>(model);
+            viewModel = Mapper.Map<TViewModel>(model);
             return viewModel;
         }
 

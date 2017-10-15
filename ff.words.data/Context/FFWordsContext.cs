@@ -15,6 +15,8 @@
 
         DbSet<EntryModel> WordsEntries { get; set; }
 
+        DbSet<CategoryModel> WordsCategories { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
