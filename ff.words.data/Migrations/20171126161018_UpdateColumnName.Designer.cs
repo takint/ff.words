@@ -11,9 +11,10 @@ using System;
 namespace ff.words.data.Migrations
 {
     [DbContext(typeof(FFWordsContext))]
-    partial class FFWordsContextModelSnapshot : ModelSnapshot
+    [Migration("20171126161018_UpdateColumnName")]
+    partial class UpdateColumnName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
