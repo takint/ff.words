@@ -10,9 +10,9 @@
 
     public class EntryViewModel : BaseViewModel, ICreateMapping
     {
-        public string EntryTitle { get; set; }
+        public string Title { get; set; }
 
-        public string EntryContent { get; set; }
+        public string Content { get; set; }
 
         public override void ValidateAndThrow()
         {
