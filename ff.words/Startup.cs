@@ -79,6 +79,7 @@
                 c.AllowAnyHeader();
                 c.AllowAnyMethod();
                 c.AllowAnyOrigin();
+                c.AllowCredentials();
             });
 
             app.UseMvc(routes =>
