@@ -18,7 +18,7 @@ class App extends Component {
                 </div>
                 <Route exact path="/" component={EntryListPage} />
                 <Route exact path="/entry/new" component={EntryFormPage} />
-                <Route exact path="/enry/edit/:_id" component={EntryFormPage} />
+                <Route exact path="/entry/edit/:id" component={EntryFormPage} />
             </Container>
         );
     }

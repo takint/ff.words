@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, Button, Icon } from 'semantic-ui-react';
 
 export default function EntryCard({entry, deleteEntry}){
@@ -16,7 +17,7 @@ export default function EntryCard({entry, deleteEntry}){
             </Card.Content>
             <Card.Content extra>
                 <div className="ui two buttons">
-                    <Button basic color="green">Edit</Button>
+                    <Link to={`/entry/edit/${entry.id}`} className="ui basic button green">Edit</Link>
                     <Button basic color="red">Delete</Button>
                 </div>
             </Card.Content>

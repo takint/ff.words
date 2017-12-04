@@ -11,6 +11,8 @@
         /// </summary>
         public EntryValidation()
         {
+            RuleFor(c => c.Title).NotEmpty();
+
             RuleFor(c => c.CreatedUser).NotEmpty();
             RuleFor(c => c.CreatedDate).NotEmpty();
 

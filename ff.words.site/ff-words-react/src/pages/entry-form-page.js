@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { SubmissionError } from 'redux-form';
 import { connect } from 'react-redux';
-import { newEntry, saveEntry } from '../actions/entry-actions';
+import { newEntry, saveEntry, updateEntry, fetchEntry } from '../actions/entry-actions';
 import EntryForm from '../components/entry-form';
 
 class EntryFormPage extends Component {
@@ -12,18 +12,33 @@ class EntryFormPage extends Component {
     };
 
     componentDidMount(){
-        this.props.newEntry();
+        const {id} = this.props.match.params;
+
+        if(id){
+            this.props.fetchEntry(id)
+        } else {
+            this.props.newEntry();
+        }
     }
 
     submit = (entry) => {
-        return this.props.saveEntry(entry)
-        .then(response => this.setState({ redirect: true }))
-        .catch(err => {
-            throw new SubmissionError(this.props.errors);
-        });
+        if(!entry.id){
+            return this.props.saveEntry(entry)
+            .then(response => this.setState({ redirect: true }))
+            .catch(err => {
+                throw new SubmissionError(this.props.errors);
+            });
+        } else {
+            return this.props.updateEntry(entry)
+            .then(response => this.setState({redirect: true}))
+            .catch(err => {
+                throw new SubmissionError(this.props.errors);
+            });
+        }
     };
 
     render() {
+
         return (
             <div>
                 {
@@ -42,4 +57,4 @@ function mapStateToProps(state){
     };
 }
 
-export default connect(mapStateToProps, {newEntry, saveEntry})(EntryFormPage);
+export default connect(mapStateToProps, {newEntry, saveEntry, fetchEntry, updateEntry})(EntryFormPage);

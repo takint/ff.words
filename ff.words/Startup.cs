@@ -11,6 +11,7 @@
     using System.IO;
     using ff.words.data.Context;
     using Microsoft.EntityFrameworkCore;
+    using ff.words.Filter;
 
     public class Startup
     {
@@ -45,7 +46,7 @@
             // Add framework services.
             services.AddMvc(options =>
             {
-                //options.Filters.Add(new ApiExceptionFilter());
+                options.Filters.Add(new ApiExceptionFilter());
             })
             .AddJsonOptions(options =>
             {

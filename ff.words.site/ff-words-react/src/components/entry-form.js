@@ -13,14 +13,21 @@ class EntryForm extends Component{
         </Form.Field>
     );
 
-    render(){
+    componentWillReceiveProps = (nextProps) => {
+        const { entry } = nextProps;
+        console.log(entry);
+        if(entry.id !== this.props.entry.id){
+            this.props.initialize(entry);
+        }
+    };
 
+    render(){
         const { handleSubmit, pristine, submitting, loading } = this.props;
 
         return (
             <Grid>
                 <Grid.Column>
-                    <h1 style={{marginTop:"1em"}}>Add new Entry</h1>
+                    <h1 style={{marginTop:"1em"}}>{this.props.entry.id ? 'Edit Entry' : 'Add new Entry' }</h1>
                     <Form onSubmit={handleSubmit} loading={loading}>
                         <Form.Group widths='equal'>
                             <Field name='title' type='text' component={this.renderField} label='Entry Title' />
@@ -36,4 +43,16 @@ class EntryForm extends Component{
     };
 }
 
-export default reduxForm({form: 'entry'})(EntryForm);
+const validate = (values) => {
+    const errors = {title:{}};
+
+    if(!values.title){
+        errors.title = {
+            message: 'Title is not empty'
+        };
+    }
+
+    return errors;
+};
+
+export default reduxForm({form: 'entry', validate})(EntryForm);
