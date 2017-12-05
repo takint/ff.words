@@ -36,7 +36,7 @@ export function updateEntry(entry) {
     return dispatch => {
         return dispatch({
             type: 'UPDATE_ENTRY',
-            payload: client.put(`${updateEntryApi}/${entry.id}`, entry)
+            payload: client.post(updateEntryApi, entry)
         });
     };
 };

@@ -44,7 +44,7 @@ export default (state=entryDefaultState, action={}) => {
                 ...state,
                 loading: true
             };
-        case 'UPDATE_ENTRY_FULLFILLED':
+        case 'UPDATE_ENTRY_FULFILLED':
             const entry = action.payload.data;
             return {
                 ...state,

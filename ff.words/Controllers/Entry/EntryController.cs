@@ -48,6 +48,8 @@
         [Route("UpdateEntry")]
         public async Task<IActionResult> UpdateEntry([FromBody]EntryViewModel entry)
         {
+            entry.UpdatedDate = DateTime.Now;
+            entry.UpdatedUser = "TakiNT";
             var result = await _entryService.UpdateAsync(entry);
             return new JsonResult(result);
         }

@@ -15,7 +15,7 @@ class EntryForm extends Component{
 
     componentWillReceiveProps = (nextProps) => {
         const { entry } = nextProps;
-        console.log(entry);
+
         if(entry.id !== this.props.entry.id){
             this.props.initialize(entry);
         }
@@ -55,4 +55,4 @@ const validate = (values) => {
     return errors;
 };
 
-export default reduxForm({form: 'entry', validate})(EntryForm);
+export default reduxForm({form: 'entry'})(EntryForm);
