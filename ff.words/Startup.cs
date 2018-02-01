@@ -12,6 +12,7 @@
     using ff.words.data.Context;
     using Microsoft.EntityFrameworkCore;
     using ff.words.Filter;
+    using Swashbuckle.AspNetCore.Swagger;
 
     public class Startup
     {
@@ -60,6 +61,12 @@
             // AutoMapper
             services.AddAutoMapper();
 
+            // Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
+
             // .NET Native DI Abstraction
             RegisterServices(services);
         }
@@ -87,6 +94,12 @@
             {
                 routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(name: "api", template: "api/{controller}/{action?}/{id?}");
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
         }
 
