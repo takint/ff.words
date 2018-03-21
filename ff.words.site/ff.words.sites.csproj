@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ffwords\src\app\modules\" />
+    <Folder Include="ffwords\src\app\shared\" />
     <Folder Include="wwwroot" />
   </ItemGroup>
 

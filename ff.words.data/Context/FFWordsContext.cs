@@ -13,9 +13,9 @@
         {
         }
 
-        DbSet<EntryModel> WordsEntries { get; set; }
+        DbSet<EntryModel> Entries { get; set; }
 
-        DbSet<CategoryModel> WordsCategories { get; set; }
+        DbSet<CategoryModel> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

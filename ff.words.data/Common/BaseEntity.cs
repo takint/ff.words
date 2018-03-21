@@ -9,12 +9,12 @@
     public class BaseEntity : Entity
     {
 
-        [StringLength(100)]
+        [MaxLength(100)]
         public string CreatedUser { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
-        [StringLength(100)]
+        [MaxLength(100)]
         public string UpdatedUser { get; set; }
 
         public DateTime? UpdatedDate { get; set; }
