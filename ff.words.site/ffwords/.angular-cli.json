@@ -19,7 +19,25 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "assets/vendors/by_hands/bootstrap/css/bootstrap.min.css",
+        "assets/vendors/by_hands/font-linearicons/style.css",
+        "assets/vendors/by_hands/font-icomoon/style.css",
+        "assets/vendors/by_hands/font-awesome/css/font-awesome.min.css",
+        "assets/vendors/by_hands/cleanhtmlaudioplayer/src/player.css",
+        "assets/vendors/by_hands/cleanhtmlvideoplayer/src/player.css",
+
+        "assets/modules/core/common/core.cleanui.css",
+        "assets/modules/vendors/common/vendors.cleanui.css",
+        "assets/modules/layouts/common/layouts-pack.cleanui.css",
+        "assets/modules/themes/common/themes.cleanui.css",
+        "assets/modules/menu-left/common/menu-left.cleanui.css",
+        "assets/modules/menu-right/common/menu-right.cleanui.css",
+        "assets/modules/top-bar/common/top-bar.cleanui.css",
+        "assets/modules/footer/common/footer.cleanui.css",
+        "assets/modules/pages/common/pages.cleanui.css",
+        "assets/modules/ecommerce/common/ecommerce.cleanui.css",
+        "assets/modules/apps/common/apps.cleanui.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

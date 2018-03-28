@@ -1,31 +1,32 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FF Words</title>
-  <base href="/" />
-  <environment names="Development">
-    @*<link rel="stylesheet" href="@Url.Content("~/assets/preloader.css")" asp-append-version="true" />*@
-  </environment>
-  <environment names="Production">
-    <link rel="stylesheet" href="@Url.Content("~/site.min.css")" asp-append-version="true" />
-  </environment>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FF Words</title>
+    <base href="/" />
+    <environment names="Development">
+        <link rel="stylesheet" href="@Url.Content("~/assets/preloader.css")" asp-append-version="true" />
+    </environment>
+    <environment names="Production">
+        <link rel="stylesheet" href="@Url.Content("~/site.min.css")" asp-append-version="true" />
+    </environment>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
 </head>
-<body>
-  @RenderBody()
+<body class="cat__config--vertical cat__menu-left--visible cat__menu-left--colorful">
+    @RenderBody()
 
-  <environment names="Development">
-    <script type="text/javascript" src="@Url.Content("~/inline.bundle.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/polyfills.bundle.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/styles.bundle.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/vendor.bundle.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/main.bundle.js")"></script>
-  </environment>
-  <environment names="Production">
-    <script type="text/javascript" src="@Url.Content("~/site.min.js")" asp-append-version="true"></script>
-  </environment>
+    <environment names="Development">
+        <script type="text/javascript" src="@Url.Content("~/inline.bundle.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/polyfills.bundle.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/styles.bundle.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/vendor.bundle.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/main.bundle.js")"></script>
+    </environment>
+    <environment names="Production">
+        <script type="text/javascript" src="@Url.Content("~/site.min.js")" asp-append-version="true"></script>
+    </environment>
 
-  @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -19,7 +19,7 @@
         }
 
         [HttpGet]
-        [Route("GetEntry")]
+        [Route("GetEntry/{id:int}")]
         public async Task<IActionResult> GetEntry(int id)
         {
             var result = await _entryService.GetByIdAsync<EntryViewModel>(id);

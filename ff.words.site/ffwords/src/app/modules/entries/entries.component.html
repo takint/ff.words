@@ -1,0 +1,33 @@
+<section class="card">
+    <div class="card-header">
+        <span class="cat__core__title">
+            <strong>My Entries</strong>
+        </span>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="mb-5">
+                    <ngx-datatable class="bootstrap"
+                                   [rows]="entries"
+                                   [rowHeight]="'auto'"
+                                   [headerHeight]="40"
+                                   [footerHeight]="40"
+                                   [limit]="5">
+                        <ngx-datatable-column name="Title">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                <a routerLink="/entry/{{row.id}}">{{row.title}}</a>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Created User" prop="createdUser"></ngx-datatable-column>
+                        <ngx-datatable-column name="Created Date" prop="createdDate">
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                {{value | date}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

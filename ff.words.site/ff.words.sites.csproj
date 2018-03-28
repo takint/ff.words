@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="ffwords\src\app\shared\components\" />
+    <Folder Include="ffwords\src\app\shared\models\" />
     <Folder Include="ffwords\src\app\shared\services\" />
     <Folder Include="wwwroot" />
   </ItemGroup>

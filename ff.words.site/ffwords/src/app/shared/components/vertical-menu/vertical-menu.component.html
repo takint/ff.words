@@ -1,0 +1,86 @@
+<nav class="cat__menu-left">
+    <div class="cat__menu-left__lock cat__menu-left__action--menu-toggle">
+        <div class="cat__menu-left__pin-button">
+            <div><!-- --></div>
+        </div>
+    </div>
+    <div class="cat__menu-left__logo">
+        <a [routerLink]="['/']">
+            <img src="assets/modules/dummy-assets/common/img/logo-inverse.png" />
+        </a>
+    </div>
+    <div class="cat__menu-left__inner">
+        <ul class="cat__menu-left__list cat__menu-left__list--root">
+            <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+                <a routerLink="entry/list">
+                    <span class="cat__menu-left__icon icmn-books"></span>
+                    Entries
+                </a>
+            </li>
+            <li class="cat__menu-left__divider"><!-- --></li>
+            <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+                <a [routerLink]="['dashboards/alpha']">
+                    <span class="cat__menu-left__icon icmn-home"></span>
+                    Dashboard
+                </a>
+            </li>
+            <li class="cat__menu-left__divider"><!-- --></li>
+            <li class="cat__menu-left__item cat__menu-left__submenu" [routerLinkActive]="['cat__menu-left__item--active']">
+                <a href="javascript: void(0);">
+                    <span class="cat__menu-left__icon icmn-file-text"></span>
+                    Default Pages
+                </a>
+                <ul class="cat__menu-left__list">
+                    <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+                        <a [routerLink]="['pages/login-alpha']">
+                            <span class="cat__menu-left__icon">LA</span>
+                            Login Alpha
+                        </a>
+                    </li>
+                    <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+                        <a [routerLink]="['pages/login-beta']">
+                            <span class="cat__menu-left__icon">LB</span>
+                            Login Beta
+                        </a>
+                    </li>
+                    <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+                        <a [routerLink]="['pages/register']">
+                            <span class="cat__menu-left__icon">R</span>
+                            Register
+                        </a>
+                    </li>
+                    <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+                        <a [routerLink]="['pages/lockscreen']">
+                            <span class="cat__menu-left__icon">LS</span>
+                            Lockscreen
+                        </a>
+                    </li>
+                    <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+                        <a [routerLink]="['pages/pricing-tables']">
+                            <span class="cat__menu-left__icon">PT</span>
+                            Pricing Tables
+                        </a>
+                    </li>
+                    <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+                        <a [routerLink]="['pages/invoice']">
+                            <span class="cat__menu-left__icon">I</span>
+                            Invoice
+                        </a>
+                    </li>
+                    <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+                        <a [routerLink]="['pages/page-404']">
+                            <span class="cat__menu-left__icon">P4</span>
+                            Page 404
+                        </a>
+                    </li>
+                    <li class="cat__menu-left__item" [routerLinkActive]="['cat__menu-left__item--active']">
+                        <a [routerLink]="['pages/page-500']">
+                            <span class="cat__menu-left__icon">P5</span>
+                            Page 500
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
