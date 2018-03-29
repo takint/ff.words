@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EntriesService } from './entries.service';
 import { AppUtils } from '../../shared/shared.utils';
 import { Observable } from 'rxjs/Observable';
-import { EntryModel } from '../../shared/models/entry-model';
+import { EntryModel } from '../../shared/models/entry.model';
 
 @Component({
     selector: 'app-entries',

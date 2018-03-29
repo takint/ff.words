@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Form } from '@angular/forms';
 import { EntriesService } from '../entries.service';
 import { AppUtils } from '../../../shared/shared.utils';
-import { EntryModel } from '../../../shared/models/entry-model';
+import { EntryModel } from '../../../shared/models/entry.model';
 
 @Component({
     selector: 'app-entry',
