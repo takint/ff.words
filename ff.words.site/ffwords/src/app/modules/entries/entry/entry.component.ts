@@ -13,10 +13,12 @@ import { EntryModel } from '../../../shared/models/entry.model';
 export class EntryComponent implements OnInit {
 
     public entryPromise: Promise<any> = null;
-    private model: EntryModel;
+    public entryLoaded: boolean = false;
+    public model: EntryModel;
 
     constructor(private route: ActivatedRoute,
         private service: EntriesService) {
+
         this.route.params.subscribe(params => {
             if (!AppUtils.isNullOrEmpty(params['id'])) {
                 let entryId = params['id'];
@@ -24,6 +26,7 @@ export class EntryComponent implements OnInit {
                 this.entryPromise.then(resolved => {
                     if (!AppUtils.isNullOrEmpty(resolved)) {
                         this.model = resolved;
+                        this.entryLoaded = true;
                     }
                 });
             }
@@ -32,5 +35,6 @@ export class EntryComponent implements OnInit {
 
     ngOnInit() {
     }
+
 
 }
