@@ -1,46 +1,64 @@
-<section class="card">
+<section *ngIf="entryLoaded" class="card cat__core__card-with-sidebar cat__core__card-with-sidebar--right">
     <div class="card-header">
+        <div class="pull-right mt-2">
+            <span class="mr-3">
+                Created by: <a href="">{{model.createdUser}}</a>
+            </span>
+        </div>
         <span class="cat__core__title">
-            <strong>Entry</strong>
+            <strong>{{model.title}}</strong>
         </span>
     </div>
     <div class="card-body">
-        <div class="row" *ngIf="entryLoaded">
+        <div class="row">
             <div class="col-lg-12">
                 <div class="mb-5">
-                    <h5 class="text-black"><strong>{{model.title}}</strong></h5>
-                    <form #mainForm="ngForm">
+                    <h5 class="text-black"><strong>Entry</strong></h5>
+                    <form #mainForm="ngForm" (ngSubmit)="onSubmit(mainForm.valid)">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <input type="text" 
+                                    <input type="text"
                                            name="entryTitle"
-                                           class="form-control" 
+                                           class="form-control"
                                            placeholder="Title"
                                            [(ngModel)]="model.title" />
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Content</label>
                             <quill-editor name="entryContent"
                                           [style]="{height: '200px'}"
                                           [(ngModel)]="model.content"></quill-editor>
                         </div>
                         <div class="form-group">
-                            <label for="l39">File input</label>
+                            <label for="l39">Feature image</label>
                             <br />
                             <input type="file" id="l39">
                             <br />
-                            <small class="text-muted">Technical information for user</small>
+                            <small class="text-muted">Post images</small>
                         </div>
                         <div class="form-actions">
-                            <button type="button" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                             <button type="button" routerLink="/entry/list" class="btn btn-default">Cancel</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="cat__core__card-sidebar">
+        <div class="btn-group-vertical btn-group-justified">
+            <button type="button" class="btn btn-primary">Publish</button>
+            <button type="button" class="btn btn-danger">Close</button>
+            <button type="button" class="btn">Draft</button>
+        </div>
+        <br />
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy
+            text ever since the 1500s, when an unknown printer took a galley
+            of type and scrambled it to make a type specimen book.
+        </p>
     </div>
 </section>
