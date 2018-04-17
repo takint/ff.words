@@ -12,6 +12,10 @@ export class BaseFormComponent extends BaseComponent implements AfterViewChecked
     @ViewChild('mainForm') currentForm: NgForm;
 
     public isInitDataLoaded: boolean = false;
+    public model: any;
+
+    public isAddMode: boolean;
+    public isEditMode: boolean;
 
     // Validation rules
     formErrors = {};
@@ -28,6 +32,28 @@ export class BaseFormComponent extends BaseComponent implements AfterViewChecked
     onValueChanged(data?: any) {
         this.validateAllFields(true);
     }
+
+    routingHandler() {
+        this.route.params.subscribe(params => {
+            if (!AppUtils.isNullOrEmpty(params['id'])) {
+                let entryId = params['id'];
+                if (entryId > 0) {
+                    // Load init data
+
+                    //this.entryPromise = this.service.getEntry(entryId);
+                    //this.entryPromise.then(resolved => {
+                    //    if (!AppUtils.isNullOrEmpty(resolved)) {
+                    //        this.model = resolved;
+                    //        this.isInitDataLoaded = true;
+                    //    }
+                    //});
+                } else {
+                    this.isAddMode = true;
+                    this.isInitDataLoaded = true;
+                }
+            }
+        });
+    };
 
     ngAfterViewChecked(): void {
         this.formChanged();
@@ -50,6 +76,7 @@ export class BaseFormComponent extends BaseComponent implements AfterViewChecked
         if (AppUtils.isNullOrEmpty(this.mainForm)) { return; }
 
         const form = this.mainForm.form;
+
         for (const field in this.validationRules) {
             this.formErrors[field] = '';
             const control = form.get(field);
@@ -57,9 +84,11 @@ export class BaseFormComponent extends BaseComponent implements AfterViewChecked
             if (!AppUtils.isNullOrEmpty(control)) {
                 if (!control.valid && (control.dirty || checkDirty)) {
                     const message = this.validationRules[field];
+
                     for (const key in control.errors) {
                         this.formErrors[field] += message[key] + ' ';
                     }
+
                     control.markAsDirty();
                 }
             }

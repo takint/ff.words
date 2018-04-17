@@ -1,4 +1,4 @@
-<section *ngIf="entryLoaded" class="card cat__core__card-with-sidebar cat__core__card-with-sidebar--right">
+<section *ngIf="isInitDataLoaded" class="card cat__core__card-with-sidebar cat__core__card-with-sidebar--right">
     <div class="card-header">
         <div class="pull-right mt-2">
             <span class="mr-3">
@@ -18,11 +18,13 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <input type="text"
+                                    <input required
+                                           type="text"
                                            name="entryTitle"
                                            class="form-control"
                                            placeholder="Title"
                                            [(ngModel)]="model.title" />
+                                    <label *ngIf="formErrors.entryTitle"><span class="label text-danger">Title is required</span></label>
                                 </div>
                             </div>
                         </div>

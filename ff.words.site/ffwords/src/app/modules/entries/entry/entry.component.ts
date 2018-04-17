@@ -15,7 +15,6 @@ import { NgControl } from '@angular/forms/src/directives/ng_control';
 export class EntryComponent extends BaseFormComponent implements AfterViewChecked, OnInit {
 
     public entryPromise: Promise<any> = null;
-    public model: EntryModel;
 
     constructor(protected route: ActivatedRoute, protected service: EntriesService) {
 
@@ -24,13 +23,18 @@ export class EntryComponent extends BaseFormComponent implements AfterViewChecke
         this.route.params.subscribe(params => {
             if (!AppUtils.isNullOrEmpty(params['id'])) {
                 let entryId = params['id'];
-                this.entryPromise = this.service.getEntry(entryId);
-                this.entryPromise.then(resolved => {
-                    if (!AppUtils.isNullOrEmpty(resolved)) {
-                        this.model = resolved;
-                        this.isInitDataLoaded = true;
-                    }
-                });
+                if (entryId > 0) {
+                    this.entryPromise = this.service.getEntry(entryId);
+                    this.entryPromise.then(resolved => {
+                        if (!AppUtils.isNullOrEmpty(resolved)) {
+                            this.model = resolved;
+                            this.isInitDataLoaded = true;
+                        }
+                    });
+                } else { // edit mode
+                    this.model = new EntryModel();
+                    this.isInitDataLoaded = true;
+                }
             }
         });
     }
@@ -49,4 +53,11 @@ export class EntryComponent extends BaseFormComponent implements AfterViewChecke
                 window.location.reload();
             });
     }
+
+    // Validation
+    validationRules = {
+        'entryTitle': {
+            'required': 'Title is required'
+        }
+    };
 }
