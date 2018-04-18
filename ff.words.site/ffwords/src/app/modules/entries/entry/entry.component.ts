@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Form, NgForm } from '@angular/forms';
 import { EntriesService } from '../entries.service';
 import { BaseFormComponent } from '../../../shared/shared.component';
@@ -16,27 +16,23 @@ export class EntryComponent extends BaseFormComponent implements AfterViewChecke
 
     public entryPromise: Promise<any> = null;
 
-    constructor(protected route: ActivatedRoute, protected service: EntriesService) {
+    constructor(protected route: ActivatedRoute, protected service: EntriesService, private router: Router) {
+        super(route, service);
+    }
 
-        super(route);
-
-        this.route.params.subscribe(params => {
-            if (!AppUtils.isNullOrEmpty(params['id'])) {
-                let entryId = params['id'];
-                if (entryId > 0) {
-                    this.entryPromise = this.service.getEntry(entryId);
-                    this.entryPromise.then(resolved => {
-                        if (!AppUtils.isNullOrEmpty(resolved)) {
-                            this.model = resolved;
-                            this.isInitDataLoaded = true;
-                        }
-                    });
-                } else { // edit mode
-                    this.model = new EntryModel();
-                    this.isInitDataLoaded = true;
-                }
+    initModelForEditMode(id) {
+        this.entryPromise = this.service.getEntry(id);
+        this.entryPromise.then(resolved => {
+            if (!AppUtils.isNullOrEmpty(resolved)) {
+                this.model = resolved;
+                this.isInitDataLoaded = true;
             }
         });
+    }
+
+    initModelForAddMode() {
+        this.model = new EntryModel();
+        this.isInitDataLoaded = true;
     }
 
     ngOnInit() {
@@ -48,9 +44,20 @@ export class EntryComponent extends BaseFormComponent implements AfterViewChecke
     }
 
     onSubmit() {
+        super.onSubmit();
+    }
+
+    addNewModel() {
+        this.service.postData(`${AppUtils.apiHost}Entry/AddEntry`, this.model)
+            .subscribe((data) => {
+                this.router.navigate([`/entry/list`]);
+            });
+    }
+
+    updateModel() {
         this.service.postData(`${AppUtils.apiHost}Entry/UpdateEntry`, this.model)
             .subscribe((data) => {
-                window.location.reload();
+                this.router.navigate([`/entry/list`]);
             });
     }
 

@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
     using ff.words.application.ViewModels;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class EntrySerivce : BaseService<EntryModel>, IEntryService
     {
@@ -22,7 +23,7 @@
         public async Task<IEnumerable<EntryViewModel>> ListAsync(ListRequestModel request)
         {
             var result = await Repository.GetAllAsync();
-            return Mapper.Map<IEnumerable<EntryViewModel>>(result);
+            return Mapper.Map<IEnumerable<EntryViewModel>>(result.OrderByDescending(e => e.CreatedDate));
         }
     }
 }

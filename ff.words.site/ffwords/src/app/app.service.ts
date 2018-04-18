@@ -31,6 +31,7 @@ export abstract class AppService extends BehaviorSubject<any> {
 
 export function parseResponse(response, isObject: boolean = false) {
     let jsonResponse;
+
     try {
         jsonResponse = isObject ? response : <any>response.json();
         for (let item in jsonResponse) {

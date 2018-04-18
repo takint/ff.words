@@ -1,5 +1,5 @@
 export class AppUtils {
-    public static apiHost = 'http://localhost:52707/api/';
+    public static apiHost: string = 'http://localhost:52707/api/';
 
     public static isNullOrEmpty(input: any): boolean {
         // Null or empty
