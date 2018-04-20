@@ -26,7 +26,7 @@
             services.AddSingleton(Mapper.Configuration);
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<IConfigurationProvider>(), sp.GetService));
 
-            services.AddScoped<IEntryService, EntrySerivce>();
+            services.AddScoped<IEntryService, EntryService>();
 
             // Infra - Data
             services.AddScoped<IEntryRepository, EntryRepository>();

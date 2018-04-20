@@ -1,18 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using ff.words.pages.Models;
-
-namespace ff.words.pages.Controllers
+﻿namespace ff.words.pages.Controllers
 {
+    using ff.words.application.Interfaces;
+    using ff.words.application.ViewModels;
+    using ff.words.pages.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Diagnostics;
+    using System.Threading.Tasks;
+
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IEntryService _entryService;
+
+        public HomeController(IEntryService entryService)
         {
-            return View();
+            _entryService = entryService;
+        }
+        
+        public async Task<IActionResult> Index()
+        {
+            HomeModel vm = new HomeModel();
+            vm.ListEntries =  await _entryService.GetAllAsync<EntryViewModel>(); 
+
+            return View(vm);
         }
 
         public IActionResult About()

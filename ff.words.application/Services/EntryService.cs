@@ -11,9 +11,9 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class EntrySerivce : BaseService<EntryModel>, IEntryService
+    public class EntryService : BaseService<EntryModel>, IEntryService
     {
-        public EntrySerivce(IUnitOfWork unitOfWork, 
+        public EntryService(IUnitOfWork unitOfWork, 
             IMapper mapper,
             IEntryRepository entryRepository) 
             : base(unitOfWork, mapper, entryRepository)
