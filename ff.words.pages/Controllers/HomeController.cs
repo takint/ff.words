@@ -7,7 +7,7 @@
     using System.Diagnostics;
     using System.Threading.Tasks;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly IEntryService _entryService;
 
