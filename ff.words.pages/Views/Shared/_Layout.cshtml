@@ -38,7 +38,27 @@
         </div>
     </nav>
     <div class="container-fluid body-content">
-        @RenderBody()
+        <div class="row">
+            <div class="col-md-3" style="background-color:azure;min-height:100vh;">
+                <h2>Application uses</h2>
+                <ul>
+                    <li>Sample pages using ASP.NET Core MVC</li>
+                    <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
+                </ul>
+                <h2>Application uses</h2>
+                <ul>
+                    <li>Sample pages using ASP.NET Core MVC</li>
+                    <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                @RenderBody()
+            </div>
+            <div class="col-md-3">
+                <div class="adv">ADV</div>
+            </div>
+        </div>
+
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - FF Team</p>

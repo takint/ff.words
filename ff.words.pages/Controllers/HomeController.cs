@@ -5,6 +5,7 @@
     using ff.words.pages.Models;
     using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class HomeController : BaseController
@@ -19,7 +20,8 @@
         public async Task<IActionResult> Index()
         {
             HomeModel vm = new HomeModel();
-            vm.ListEntries =  await _entryService.GetAllAsync<EntryViewModel>(); 
+            vm.ListEntries =  await _entryService.GetAllAsync<EntryViewModel>();
+            vm.ListEntries = vm.ListEntries.OrderByDescending(e => e.CreatedDate);
 
             return View(vm);
         }

@@ -33,3 +33,35 @@
         display: none;
     }
 }
+
+
+.ff-entry {
+    text-align: justify;
+    line-height: 1.4em;
+    font-size: 1.4em;
+    font-weight: 100;
+    font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+}
+
+.ff-entry-info {
+    list-style: none;
+    padding: 0;
+    margin-bottom:15px;
+}
+
+    .ff-entry-info li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+        .ff-entry-info li a {
+            color: #999;
+        }
+
+
+.ff-entry-title {
+    font-family: "Open Sans";
+    font-weight: 800;
+    font-size: 5em;
+    padding-bottom: 5px;
+}
