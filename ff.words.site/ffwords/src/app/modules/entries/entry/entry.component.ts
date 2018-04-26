@@ -20,7 +20,7 @@ export class EntryComponent extends BaseFormComponent implements AfterViewChecke
         super(route, service);
     }
 
-    initModelForEditMode(id) {
+    loadModelForEditMode(id) {
         this.entryPromise = this.service.getEntry(id);
         this.entryPromise.then(resolved => {
             if (!AppUtils.isNullOrEmpty(resolved)) {
@@ -30,7 +30,7 @@ export class EntryComponent extends BaseFormComponent implements AfterViewChecke
         });
     }
 
-    initModelForAddMode() {
+    loadModelForAddMode() {
         this.model = new EntryModel();
         this.isInitDataLoaded = true;
     }

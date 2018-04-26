@@ -26,43 +26,65 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">My Blog</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">TakiNT</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Archives">Archives</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Reviews">Reviews</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Portfolio">Portfolio</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Feedback">Feedback</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container-fluid body-content">
         <div class="row">
-            <div class="col-md-3" style="background-color:azure;min-height:100vh;">
-                <h2>Application uses</h2>
-                <ul>
-                    <li>Sample pages using ASP.NET Core MVC</li>
-                    <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-                </ul>
-                <h2>Application uses</h2>
-                <ul>
-                    <li>Sample pages using ASP.NET Core MVC</li>
-                    <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-                </ul>
+            <div class="col-md-3">
+                <div class="affix ff-side-bar">
+                    <h3>Blog Entries</h3>
+                    <ul class="list-unstyled">
+                        <li>Archies</li>
+                        <li>Life</li>
+                    </ul>
+                    <h3>My projects</h3>
+                    <ul class="list-unstyled">
+                        <li>This blog</li>
+                        <li>Some simple management app</li>
+                    </ul>
+                    <h3>Games</h3>
+                    <ul class="list-unstyled">
+                        <li>The witcher III</li>
+                        <li>StarCraft</li>
+                    </ul>
+                    <h3>Quotes</h3>
+                    <ul class="list-unstyled">
+                        <li>Mine</li>
+                        <li>Famous</li>
+                    </ul>
+                    <ul class="list-inline">
+                        <li>fb</li>
+                        <li>twitter</li>
+                        <li>git</li>
+                        <li>linkedin</li>
+                    </ul>
+                </div>
             </div>
             <div class="col-md-6">
                 @RenderBody()
             </div>
             <div class="col-md-3">
-                <div class="adv">ADV</div>
+                <div></div>
             </div>
         </div>
-
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - FF Team</p>
-        </footer>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - FF Team</p>
+                </footer>
+            </div>
+        </div>
     </div>
 
     <environment include="Development">

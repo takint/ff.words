@@ -65,3 +65,11 @@
     font-size: 5em;
     padding-bottom: 5px;
 }
+
+.ff-side-bar {
+    width: 24%;
+    height: 100%;
+    background-color: azure;
+    left: 0;
+    padding-left: 10px;
+}

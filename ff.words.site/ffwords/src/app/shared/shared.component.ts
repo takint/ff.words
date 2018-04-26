@@ -68,18 +68,18 @@ export class BaseFormComponent extends BaseComponent implements AfterViewChecked
                 let entityId = params['id'];
                 if (entityId > 0) {
                     this.isEditMode = true;
-                    this.initModelForEditMode(entityId);
+                    this.loadModelForEditMode(entityId);
                 } else {
                     this.isAddMode = true;
-                    this.initModelForAddMode();
+                    this.loadModelForAddMode();
                 }
             }
         });
     };
 
-    initModelForAddMode() { }
+    loadModelForAddMode() { }
 
-    initModelForEditMode(id: number) {
+    loadModelForEditMode(id: number) {
     }
 
     ngAfterViewChecked(): void {
