@@ -26,10 +26,16 @@
             return View(vm);
         }
 
+        public async Task<IActionResult> Entry(int id = 0)
+        {
+            HomeModel vm = new HomeModel();
+            vm.Entry = await _entryService.GetByIdAsync<EntryViewModel>(id);
+
+            return View(vm);
+        }
+
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 

@@ -32,6 +32,10 @@
     .carousel-caption {
         display: none;
     }
+
+    .ff-side-bar {
+        display:none;
+    }
 }
 
 
@@ -66,10 +70,20 @@
     padding-bottom: 5px;
 }
 
-.ff-side-bar {
-    width: 24%;
-    height: 100%;
-    background-color: azure;
-    left: 0;
-    padding-left: 10px;
+    .ff-side-bar {
+        width: 24%;
+        height: 100%;
+        background-color: #3d5573;
+        color: azure;
+        font-family: "Open Sans";
+        left: 0;
+        padding-left: 10px;
+    }
+
+.ff-navbar {
+    background-color: #8da3c1;
 }
+
+    .ff-navbar a {
+        color: #000;
+    }

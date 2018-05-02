@@ -6,5 +6,7 @@ namespace ff.words.pages.Models
     public class HomeModel
     {
         public IEnumerable<EntryViewModel> ListEntries { get; set; }
+
+        public EntryViewModel Entry { get; set; }
     }
 }
