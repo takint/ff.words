@@ -14,6 +14,14 @@
 
         public string Content { get; set; }
 
+        public string Excerpt { get; set; }
+
+        public string FeaturedImage { get; set; }
+
+        public string AuthorName { get; set; }
+
+        public EntryStatus CurrentStatus { get; set; }
+
         public override void ValidateAndThrow()
         {
             new EntryValidation().ValidateAndThrow(this);

@@ -2,6 +2,7 @@
 {
     using ff.words.application.Interfaces;
     using ff.words.application.ViewModels;
+    using ff.words.data.Common;
     using ff.words.pages.Models;
     using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
@@ -16,12 +17,12 @@
         {
             _entryService = entryService;
         }
-        
+
         public async Task<IActionResult> Index()
         {
             HomeModel vm = new HomeModel();
             vm.ListEntries =  await _entryService.GetAllAsync<EntryViewModel>();
-            vm.ListEntries = vm.ListEntries.OrderByDescending(e => e.CreatedDate);
+            vm.ListEntries = vm.ListEntries.Where(e => e.CurrentStatus != EntryStatus.Hidden).OrderByDescending(e => e.CreatedDate);
 
             return View(vm);
         }
@@ -34,9 +35,12 @@
             return View(vm);
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> About()
         {
-            return View();
+            HomeModel vm =new HomeModel();
+            vm.Entry = await _entryService.GetByIdAsync<EntryViewModel>(12);
+
+            return View(vm);
         }
 
         public IActionResult Error()

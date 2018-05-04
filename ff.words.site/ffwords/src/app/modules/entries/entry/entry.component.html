@@ -30,9 +30,18 @@
                         </div>
 
                         <div class="form-group">
-                            <quill-editor name="entryContent"
-                                          [style]="{height: '200px'}"
-                                          [(ngModel)]="model.content"></quill-editor>
+                            <!--<quill-editor name="entryContent"
+                                          [style]="{height: '400px'}"
+                                          [(ngModel)]="model.content"></quill-editor>-->
+                            <div class="row">
+                                <textarea name="entryContent"
+                                          cols="100"
+                                          rows="40"
+                                          class="col-md-5"
+                                          [(ngModel)]="model.content"></textarea>
+                                <article class="col-md-7"
+                                         [innerHTML]="model.content"></article>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="l39">Feature image</label>

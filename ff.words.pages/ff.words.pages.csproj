@@ -18,4 +18,8 @@
     <ProjectReference Include="..\ff.words.ioc\ff.words.ioc.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>

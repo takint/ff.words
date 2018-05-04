@@ -87,3 +87,15 @@
     .ff-navbar a {
         color: #000;
     }
+
+.ff-white-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+    .ff-white-link:hover,
+    .ff-white-link:active {
+        color: #fff;
+        opacity: .8;
+        text-decoration: none;
+    }

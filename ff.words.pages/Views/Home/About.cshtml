@@ -1,38 +1,49 @@
-﻿@{
-    ViewData["Title"] = "About";
+﻿@model HomeModel;
+
+@{
+    ViewData["Title"] = Model.Entry.Title;
 }
 
 <div class="row">
     <div class="col-md-12">
-        <h1 class="ff-entry-title">About Jim</h1>
+        <h1 class="ff-entry-title">@Model.Entry.Title</h1>
         <article class="ff-entry">
-            <img width="150" src="http://res.cloudinary.com/ff-team/image/upload/v1525241453/avatar.png" /><br />
-            <hr />
-            <p>
-                Jim is not my real name. I'm a Vietnamese so that I have a name in my native language.
-                My family and friends used to call me Tin (it's not a Western name and quite difficult to say).
-                I choose Jim as my English name and for my international friends could easy to call me.
-            </p>
-            <p>
-               Describe myself in short version: "A guy love games and have passion for programming".
-            </p>
-            <h2>What do I do?</h2>
-            <hr />
-            <p>
-                People could call me a developer, a programmer or a coder.<br />
-                Btw, I write code to make software, awesome software. That's all! <br />
-                I'm currently not available for a new job. I will update this status in a certain time.
-            </p>
-            <h2>Why I choose to be a developer?</h2>
-            <hr />
-            <p>
-                
-            </p>
-            <h2>What I do for fun?</h2>
-            <hr />
-            <p>
-                
-            </p>
+            @Html.Raw(Model.Entry.Content)
         </article>
     </div>
 </div>
+
+
+@*<img width="150" src="http://res.cloudinary.com/ff-team/image/upload/v1525241453/avatar.png" /><br />
+<hr />
+<p>
+    Jim is not my real name. I'm a Vietnamese so that I have a name in my native language.
+    My family and friends used to call me Tin (it's not a Western name and quite difficult to say).
+    I choose Jim as my English name and for my international friends could easy to call me.
+</p>
+<p>
+    Describe myself in short version: "A guy love games and have passion for programming".
+</p>
+<h2>What do I do?</h2>
+<hr />
+<p>
+    People could call me a developer, a programmer or a coder.<br />
+    Btw, I write code to make software, awesome software. That's all! <br />
+</p>
+<h2>Why I choose to be a developer?</h2>
+<hr />
+<p>
+
+</p>
+<h2>What I do for fun?</h2>
+<hr />
+<p>
+    Sometime I play some videos games.<br />
+    I likes to share my knowledge with other IT lovers and less tech-savvy people.
+</p>
+<h2>Why I create this blog?</h2>
+<p>
+    The main purpose is to keep track of whatever I am thinking about or working on.<br />
+    I firmly believe that blogs are a two way conversation, so I welcome email and comments — as long as they’re on topic, more or less.<br />
+    Fell free to drop me an email to <i>taki.lnt [at] gmail [dot] com.</i>
+</p>*@
