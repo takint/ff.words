@@ -15,35 +15,113 @@
 
 
 @*<img width="150" src="http://res.cloudinary.com/ff-team/image/upload/v1525241453/avatar.png" /><br />
-<hr />
-<p>
-    Jim is not my real name. I'm a Vietnamese so that I have a name in my native language.
-    My family and friends used to call me Tin (it's not a Western name and quite difficult to say).
-    I choose Jim as my English name and for my international friends could easy to call me.
-</p>
-<p>
-    Describe myself in short version: "A guy love games and have passion for programming".
-</p>
-<h2>What do I do?</h2>
-<hr />
-<p>
-    People could call me a developer, a programmer or a coder.<br />
-    Btw, I write code to make software, awesome software. That's all! <br />
-</p>
-<h2>Why I choose to be a developer?</h2>
-<hr />
-<p>
+    <hr />
+    <p>
+        Jim is not my real name. I'm a Vietnamese so that I have a name in my native language.
+        My family and friends used to call me Tin (it's not a Western name and quite difficult to say).
+        I choose Jim as my English name and for my international friends could easy to call me.
+    </p>
+    <p>
+        Describe myself in short version: "A guy love games and have passion for programming".
+    </p>
+    <h2>What do I do?</h2>
+    <hr />
+    <p>
+        People could call me a developer, a programmer or a coder.<br />
+        Btw, I write code to make software, awesome software. That's all! <br />
+    </p>
+    <h2>Why I choose to be a developer?</h2>
+    <hr />
+    <p>
 
-</p>
-<h2>What I do for fun?</h2>
-<hr />
-<p>
-    Sometime I play some videos games.<br />
-    I likes to share my knowledge with other IT lovers and less tech-savvy people.
-</p>
-<h2>Why I create this blog?</h2>
-<p>
-    The main purpose is to keep track of whatever I am thinking about or working on.<br />
-    I firmly believe that blogs are a two way conversation, so I welcome email and comments — as long as they’re on topic, more or less.<br />
-    Fell free to drop me an email to <i>taki.lnt [at] gmail [dot] com.</i>
-</p>*@
+    </p>
+    <h2>What I do for fun?</h2>
+    <hr />
+    <p>
+        Sometime I play some videos games.<br />
+        I likes to share my knowledge with other IT lovers and less tech-savvy people.
+    </p>
+    <h2>Why I create this blog?</h2>
+    <p>
+        The main purpose is to keep track of whatever I am thinking about or working on.<br />
+        I firmly believe that blogs are a two way conversation, so I welcome email and comments — as long as they’re on topic, more or less.<br />
+        Fell free to drop me an email to <i>taki.lnt [at] gmail [dot] com.</i>
+    </p>*@
+
+
+@*<strong>Delegate vs Event :</strong>
+    <ul>
+        <li><strong>Delegate: </strong>là một lớp (class) đại diện cho hàm con trỏ kiểu an toàn hoặc hàm gọi (call backs) chỉ đến địa chỉ tham chiếu của một (hay nhiều) hàm. Con trỏ hàm chứa trong delegate được gắn vào một đối tượng đích (target) và khi delegate được kích hoạt phương thức sẽ được gọi ở đối tượng đích. Sự hữu ích của delegate không nằm ở chỗ giữ địa chỉ tham chiếu của các hàm mà để định nghĩa và dùng các tên hàm khi runtime thay vì compile time.</li>
+    </ul>
+    <ul>
+        <li><strong>Event: </strong>cho phép xác định một delegate sẽ được gọi khi có sự xuất hiện của “sự kiện” nào đó. event là một modifier trong khi delegate là một lớp. event cho phép một delegate được khai báo trong interface.</li>
+    </ul>
+    <strong>Web service vs Remoting :</strong>
+    <ul>
+        <li><strong>Web service: </strong>không có trạng thái, không cần biết đến client chỉ sử dụng trên HTTP, hỗ trợ không đồng nhất các môi trường, tốc độ chậm hơn Remoting.</li>
+    </ul>
+    <ul>
+        <li><strong>Remoting: </strong>có trạng thái kết nối, hỗ trợ nhiều giao thức hơn HTTP, TCP…, đòi hỏi môi trường đồng nhất, tốc độ nhanh đặc biệt khi dùng trên TCP.</li>
+    </ul>
+    <strong>Tips</strong> :
+
+    - Các biến tĩnh (<strong>static</strong>) và dòng lệnh (<strong>statement</strong>) được lưu ở 1 vùng bộ nhớ đặc biệt gọi là <em><strong>Permanent Storage area</strong></em>.
+
+    - <strong>Boxing</strong> là chuyển đổi <strong>kiểu giá trị</strong> thành <strong>kiểu tham chiếu</strong>. <strong>Un-Boxing</strong> ngược lại.
+
+    - <strong>Clone</strong> chỉ copy cấu trúc trong khi <strong>Copy</strong> copy cả cấu trúc lẫn dữ liệu.
+
+    - <strong>Serialization</strong> là sự chuyển chuyển đối tượng thành 1 luồng các bytes.*@
+
+@*<strong>
+        Abstract class vs Interface : (So sánh Abstract class với Interface. Đây là câu hỏi kinh điển khi đi phỏng vấn)
+    </strong>
+
+    - Có thể thừa kế từ nhiều <strong>Interface</strong> nhưng chỉ có thể thừa kế từ một <strong>Abstract class</strong>.
+
+    - Có thể viết sẵn các thực thi trong <strong>Abstract class</strong>, nhưng <strong>Interface</strong> thì không.
+
+    - <strong>Interface</strong> dùng để gom các hành động cần được hiện thực , các khả năng của một đối tượng (ví dụ con người và xe cộ cùng có khả năng đi lại, nhưng con người không cùng tính chất với xe cộ), còn <strong>Abstract class</strong> cho các lớp thừa kế cùng 1 loại, tính chất hay trạng thái (ví dụ đàn ông, phụ nữ, trẻ con, người già đều là con người).
+
+    - <strong>Abstract class</strong> có tốc độ thực thi nhanh hơn <strong>Interface</strong>.
+
+    - Thêm một tính năng mới vào <strong>Interface</strong> sẽ phá vỡ toàn bộ các lớp hiện thực, còn <strong>Abstract class</strong> thì không.
+
+    <strong>DataSet vs DataReader :</strong>
+
+    - <strong>DataSet</strong> có thể đọc và ghi trong khi <strong>DataReader</strong> chỉ có thể đọc.
+
+    - <strong>DataSet</strong> có thể chứa nhiều bảng còn <strong>DataReader</strong> chỉ có thể chứa 1 bảng.
+
+    - <strong>DataSet</strong> làm việc ở chế độ không kết nối còn <strong>DataReader</strong> làm việc ở chế độ kết nối.
+
+    - <strong>DataSet</strong> có thể di chuyển tới và trở lại còn <strong>DataReader</strong> thì chỉ có thể di chuyển tới.
+
+    - <strong>DataSet</strong> truy cập chậm hơn <strong>DataReader</strong>.
+
+    <strong>Dispose, Destructor và Finalize :</strong>
+
+    - <strong>Destructor</strong> sẽ được chuyển thành <strong>Finalize</strong> khi biên dịch.
+
+    - Hàm <strong>Finalize</strong> được gọi bởi <em><strong>.NET Runtime</strong></em> và chúng ta không thể đoán được nó được gọi khi nào, nhưng nó chắc chắn sẽ được gọi.
+
+    - <strong>Dispose</strong> sẽ giải phóng bộ nhớ ngay khi nó được gọi. Lưu ý nếu lớp nào override <strong>Dispose</strong> mà quên gọi thì các <em><strong>đối tượng sẽ không tự giải phóng bộ nhớ</strong></em>.
+
+    <strong>Overriding vs Shadowing :</strong>
+
+    - <strong>Overriding</strong> cung cấp sự hiện thực mới của 1 hàm ở lớp thừa kế nhưng không thay đổi số biến, kiểu trả về, mức truy cập còn <strong>Shadowing</strong> thì có thể thay đổi (từ khóa new trong C#).
+
+    <strong>Property vs Field :</strong>
+
+    - <strong>Property</strong> dùng để quản lý sự truy cập đến <strong>Field</strong>. Dùng <strong>Property</strong> để đảm bảo <strong>Field</strong> không bị gán các giá trị không hợp lệ.
+
+    <strong>Tips:</strong>
+
+    - Hàm <strong>GetHasCode()</strong> trong <strong>System.Object</strong> trả về giá trị của một đối tượng. Chú ý hàm này mặc định không trả về giá trị duy nhất hoặc không đổi. Hàm này có thể override.
+
+    - <strong>Pooling</strong> cho phép tăng tốc độ của các ứng dụng Web bằng cách dùng lại các kết nối thay vì tạo các kết nối mới với mỗi yêu cầu.
+
+    - <strong>Asp.Net phân biệt các Session với nhau</strong> : mỗi Session gắn với 1 định danh (ID). ID sẽ được tạo ra trên server khi session bắt đầu và được truyền cho browser. Sau đó browser sẽ truyền lại ID này lên server mỗi khi truy cập vào website. Như vậy ta có thể thấy rằng sẽ rất tiện nếu như Session ID được lưu trữ trong Cookie và được browser tự động truyền lên server mỗi khi truy cập vào website.
+
+    - <strong>Response.Redirect :</strong> đơn thuần là chuyển bạn đến một trang mới giống như bạn gõ địa chỉ trang đó trên browser và request đến server.
+    - <strong>Server.Transfer :</strong> cũng chuyển bạn đến trang mới nhưng ở phía server, làm giảm request đến server, giữa nguyên URL của bạn và có thể chuyển cả các query string và biến trên form đên địa chỉ mới, chỉ thực hiện giữa các trang trên cùng 1 host.*@

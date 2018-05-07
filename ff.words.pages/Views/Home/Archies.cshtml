@@ -1,0 +1,23 @@
+﻿@model HomeModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@foreach (var entry in Model.ListEntries)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="ff-entry-title">@entry.Title</h1>
+            <ul class="ff-entry-info">
+                <li><a><span class="glyphicon glyphicon-calendar"></span>@entry.CreatedDate.ToLongDateString()</a></li>
+                <li><a><span class="glyphicon glyphicon-tags"></span> Tags</a></li>
+                <li><a><span class="glyphicon glyphicon-comment"></span> Comment</a></li>
+                <li><a><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
+            </ul>
+            <article class="ff-entry">
+                @Html.Raw(entry.Content)
+            </article>
+        </div>
+    </div>
+    <hr />
+}

@@ -43,6 +43,16 @@
             return View(vm);
         }
 
+        public IActionResult Games()
+        {
+            return View();
+        }
+
+        public IActionResult Archies()
+        {
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
