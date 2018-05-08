@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using ff.words.data.Context;
 using ff.words.ioc;
+using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 
 namespace ff.words.pages
 {
@@ -30,6 +32,11 @@ namespace ff.words.pages
             // AutoMapper
             services.AddAutoMapper();
 
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddInMemoryApiResources(GetApiResources())
+                .AddInMemoryClients(GetClients());
+
             RegisterServices(services);
         }
 
@@ -48,6 +55,8 @@ namespace ff.words.pages
 
             app.UseStaticFiles();
 
+            app.UseIdentityServer();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -60,6 +69,31 @@ namespace ff.words.pages
         {
             // Adding dependencies from another layers (isolated from Presentation)
             NativeInjectorBootStrapper.RegisterServices(services);
+        }
+
+        public static IEnumerable<ApiResource> GetApiResources()
+        {
+            return new List<ApiResource>
+            {
+                new ApiResource("api", "My API V1")
+            };
+        }
+
+        public static IEnumerable<Client> GetClients()
+        {
+            return new List<Client>
+            {
+                new Client
+                {
+                    ClientId = "client",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets =
+                    {
+                        new Secret("secrect".Sha256())
+                    },
+                    AllowedScopes = { "api" }
+                }
+            };
         }
     }
 }
