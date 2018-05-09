@@ -58,6 +58,15 @@
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
             });
 
+            // Authentication
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "http://localhost:23465";
+                    options.RequireHttpsMetadata = false;
+                    options.ApiName = "api";
+                });
+
             // AutoMapper
             services.AddAutoMapper();
 
@@ -89,6 +98,8 @@
                 c.AllowAnyOrigin();
                 c.AllowCredentials();
             });
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

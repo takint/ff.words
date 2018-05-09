@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ff.words.ioc", "ff.words.io
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ff.words.sites", "ff.words.site\ff.words.sites.csproj", "{B1DFD036-4018-4238-A243-0A4AF97A100A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ff.words.pages", "ff.words.pages\ff.words.pages.csproj", "{180B3166-0367-4F2A-96E2-9C60A67B4141}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ff.words.pages", "ff.words.pages\ff.words.pages.csproj", "{180B3166-0367-4F2A-96E2-9C60A67B4141}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

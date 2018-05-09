@@ -4,6 +4,7 @@
     using ff.words.application.ViewModels;
     using ff.words.data.Common;
     using ff.words.pages.Models;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
     using System.Linq;
@@ -43,6 +44,7 @@
             return View(vm);
         }
 
+        [Authorize]
         public IActionResult Games()
         {
             return View();

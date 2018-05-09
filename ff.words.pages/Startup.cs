@@ -32,6 +32,7 @@ namespace ff.words.pages
             // AutoMapper
             services.AddAutoMapper();
 
+            // Identity server
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddInMemoryApiResources(GetApiResources())

@@ -3,6 +3,7 @@
     using ff.words.application.Common;
     using ff.words.application.Interfaces;
     using ff.words.application.ViewModels;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
@@ -27,6 +28,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         [Route("GetEntries")]
         public async Task<IActionResult> GetEntries()
         {
