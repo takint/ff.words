@@ -15,12 +15,17 @@ export class EntriesComponent implements OnInit {
     public entries: Array<EntryModel> = [];
 
     constructor(private service: EntriesService) {
-        this.listPromise = this.service.getList();
-        this.listPromise.then(resolved => {
-            if (!AppUtils.isNullOrEmpty(resolved)) {
-                this.entries = resolved;
+        this.service.getList().subscribe(data => {
+            console.log(data);
+            if (!AppUtils.isNullOrEmpty(data)) {
+                this.entries = data;
             }
-        }).catch(reject => console.log(reject));
+        });
+
+
+        //this.listPromise.then(resolved => {
+           
+        //}).catch(reject => console.log(reject));
     }
 
     ngOnInit() {

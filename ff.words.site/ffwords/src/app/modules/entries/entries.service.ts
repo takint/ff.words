@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import { AppService } from '../../app.service';
 import { AppUtils } from '../../shared/shared.utils';
 
@@ -10,12 +11,12 @@ export class EntriesService extends AppService {
     private getApi: string = 'Entry/GetEntry/';
     private postApi: string = '';
 
-    constructor(http: Http) {
+    constructor(http: HttpClient) {
         super(http);
     }
 
-    public getList(): Promise<any> {
-        return this.getData(`${AppUtils.apiHost}${this.listApi}`).toPromise<any>();
+    public getList(): Observable<any> {
+        return this.getData(`${AppUtils.apiHost}${this.listApi}`);
     }
 
     public getEntry(entryId: number): Promise<any> {
