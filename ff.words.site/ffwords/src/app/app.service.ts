@@ -11,7 +11,11 @@ import {
     HttpInterceptor,
     HttpHandler,
     HttpEvent,
-    HttpErrorResponse
+    HttpErrorResponse,
+    HttpSentEvent,
+    HttpHeaderResponse,
+    HttpProgressEvent,
+    HttpUserEvent
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -26,7 +30,7 @@ export abstract class AppService extends BehaviorSubject<any> {
 
     public getData(sourceUrl: string, params?: any): Observable<HttpResponse<any>> {
         return this._http.get(sourceUrl, params)
-            //.map(response => parseResponse(response))
+            .map(response => parseResponse(response))
             .catch(ex => {
                 console.log(ex);
                 return Observable.throw(ex);
@@ -47,27 +51,36 @@ export class JwtInterceptor implements HttpInterceptor {
 
     private cachedRequests: Array<HttpRequest<any>> = [];
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        request = request.clone({
+    intercept(request: HttpRequest<any>, next: HttpHandler):
+        Observable<HttpSentEvent |
+        HttpHeaderResponse |
+        HttpProgressEvent |
+        HttpResponse<any> |
+        HttpUserEvent<any>> {
+
+        return next.handle(this.addRequestToken(request)).catch(
+            error => {
+                if (error instanceof HttpErrorResponse) {
+                    switch (error.status) {
+                        case 400: // Not found
+                            return;
+                        case 401: // Unauthorize
+                            this.collectFailedRequestes(request);
+                            break;
+                        default: break;
+                    }
+                } else {
+                    return Observable.throw(error);
+                }
+            });
+    }
+
+    private addRequestToken(request: HttpRequest<any>): HttpRequest<any> {
+        return request.clone({
             setHeaders: {
                 Authorization: `Bearer ${this.getToken()}` // refresh token
             }
         });
-
-        return next.handle(request);
-    //.do (
-    //        (event: HttpEvent<any>) => {
-    //            if (event instanceof HttpResponse) {
-    //                // process the response
-    //            }
-    //        },
-    //        (error: any) => {
-    //            if (error instanceof HttpErrorResponse) {
-    //                if (error.status === 401) { // Unauthorize
-    //                    this.collectFailedRequestes(request);
-    //                }
-    //            }
-    //        });
     }
 
     private collectFailedRequestes(rq: HttpRequest<any>): void {
@@ -84,19 +97,24 @@ export class JwtInterceptor implements HttpInterceptor {
 }
 
 export function parseResponse(response, isObject: boolean = false) {
-    let jsonResponse;
+    // For the first time the response is object itself
+    if (typeof (response) === "object") {
+        return response;
+    }
 
+    let jsonResponse;
     try {
         jsonResponse = isObject ? response : <any>response.json();
+        
         for (let item in jsonResponse) {
             if (jsonResponse[item] !== null) {
-                if (typeof (jsonResponse[item]) == "object") {
+                if (typeof (jsonResponse[item]) === "object") {
                     parseResponse(jsonResponse[item], true);
                 }
             }
         }
     } catch (ex) {
-        return null;
+        throw ex;
     }
 
     return jsonResponse;

@@ -15,8 +15,8 @@ export class EntriesService extends AppService {
         super(http);
     }
 
-    public getList(): Observable<any> {
-        return this.getData(`${AppUtils.apiHost}${this.listApi}`);
+    public getList(): Promise<any> {
+        return this.getData(`${AppUtils.apiHost}${this.listApi}`).toPromise<any>();
     }
 
     public getEntry(entryId: number): Promise<any> {
