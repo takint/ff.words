@@ -1,10 +1,4 @@
 import {
-    Response,
-    RequestOptionsArgs,
-    RequestMethod,
-    Headers
-} from '@angular/http';
-import {
     HttpClient,
     HttpRequest,
     HttpResponse,
@@ -22,6 +16,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+
+import { AppUtils } from './shared/shared.utils';
 
 export abstract class AppService extends BehaviorSubject<any> {
     constructor(private _http: HttpClient) {
@@ -47,55 +43,6 @@ export abstract class AppService extends BehaviorSubject<any> {
     }
 }
 
-export class JwtInterceptor implements HttpInterceptor {
-
-    private cachedRequests: Array<HttpRequest<any>> = [];
-
-    intercept(request: HttpRequest<any>, next: HttpHandler):
-        Observable<HttpSentEvent |
-        HttpHeaderResponse |
-        HttpProgressEvent |
-        HttpResponse<any> |
-        HttpUserEvent<any>> {
-
-        return next.handle(this.addRequestToken(request)).catch(
-            error => {
-                if (error instanceof HttpErrorResponse) {
-                    switch (error.status) {
-                        case 400: // Not found
-                            return;
-                        case 401: // Unauthorize
-                            this.collectFailedRequestes(request);
-                            break;
-                        default: break;
-                    }
-                } else {
-                    return Observable.throw(error);
-                }
-            });
-    }
-
-    private addRequestToken(request: HttpRequest<any>): HttpRequest<any> {
-        return request.clone({
-            setHeaders: {
-                Authorization: `Bearer ${this.getToken()}` // refresh token
-            }
-        });
-    }
-
-    private collectFailedRequestes(rq: HttpRequest<any>): void {
-        this.cachedRequests.push(rq);
-    }
-
-    private retryFailedRequests(): void {
-
-    }
-
-    private getToken(): string {
-        return localStorage.getItem("access_token");
-    }
-}
-
 export function parseResponse(response, isObject: boolean = false) {
     // For the first time the response is object itself
     if (typeof (response) === "object") {
@@ -118,4 +65,80 @@ export function parseResponse(response, isObject: boolean = false) {
     }
 
     return jsonResponse;
+}
+
+export class JwtInterceptor implements HttpInterceptor {
+
+    private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    private isRefreshingToken: boolean = localStorage.getItem("access_token") !== null;
+
+    constructor(private _http: HttpClient) { }
+
+    intercept(request: HttpRequest<any>, next: HttpHandler):
+        Observable<HttpSentEvent |
+        HttpHeaderResponse |
+        HttpProgressEvent |
+        HttpResponse<any> |
+        HttpUserEvent<any>> {
+
+        return next.handle(this.addRequestToken(request)).catch(
+            error => {
+                if (error instanceof HttpErrorResponse) {
+                    switch (error.status) {
+                        case 400: // Bad request
+                            return;
+                        case 401: // Unauthorize
+                            return this.processFailedRequestes(request, next);
+                        default: break;
+                    }
+                } else {
+                    return Observable.throw(error);
+                }
+            });
+    }
+
+    private refreshToken(): Observable<any> {
+        let endPoint = 'api/GetUserAccessToken';
+        return this._http.get(endPoint);
+    }
+
+    private addRequestToken(request: HttpRequest<any>): HttpRequest<any> {
+        return request.clone({
+            setHeaders: {
+                Authorization: `Bearer ${this.getToken()}` // refresh token
+            }
+        });
+    }
+
+    private processFailedRequestes(rq: HttpRequest<any>, next: HttpHandler) {
+        if (!this.isRefreshingToken) {
+            this.isRefreshingToken = true;
+
+            this.tokenSubject.next(null);
+
+            return this.refreshToken().switchMap(
+                (newToken) => {
+                    if (AppUtils.isNullOrEmpty(newToken)) {
+                        this.tokenSubject.next(newToken);
+                        localStorage.setItem("access_token", newToken);
+                        return next.handle(this.addRequestToken(rq));
+                    }
+                });
+        } else {
+            return this.tokenSubject
+                .filter(token => token !== null)
+                .take(1)
+                .switchMap(token => {
+                    return next.handle(this.addRequestToken(rq));
+                });
+        }
+    }
+
+    private retryFailedRequests(): void {
+
+    }
+
+    private getToken(): string {
+        return localStorage.getItem("access_token");
+    }
 }

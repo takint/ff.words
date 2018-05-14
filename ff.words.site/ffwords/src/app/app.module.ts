@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routes';
@@ -27,6 +27,8 @@ import { JwtInterceptor } from './app.service';
         {
             provide: HTTP_INTERCEPTORS,
             useClass: JwtInterceptor,
+            useFactory: '',
+            deps: [HttpClient],
             multi: true
         }
     ],
