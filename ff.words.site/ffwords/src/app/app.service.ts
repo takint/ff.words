@@ -52,7 +52,7 @@ export function parseResponse(response, isObject: boolean = false) {
     let jsonResponse;
     try {
         jsonResponse = isObject ? response : <any>response.json();
-        
+
         for (let item in jsonResponse) {
             if (jsonResponse[item] !== null) {
                 if (typeof (jsonResponse[item]) === "object") {
@@ -81,15 +81,17 @@ export class JwtInterceptor implements HttpInterceptor {
         HttpResponse<any> |
         HttpUserEvent<any>> {
 
-        return next.handle(this.addRequestToken(request)).catch(
+        return next.handle(this.addRequestToken(request, this.getToken())).catch(
             error => {
                 if (error instanceof HttpErrorResponse) {
                     switch (error.status) {
                         case 400: // Bad request
+                            console.log("400");
                             return;
                         case 401: // Unauthorize
                             return this.processFailedRequestes(request, next);
-                        default: break;
+                        default:
+                            window.location.href = "Home/Login";
                     }
                 } else {
                     return Observable.throw(error);
@@ -97,40 +99,43 @@ export class JwtInterceptor implements HttpInterceptor {
             });
     }
 
-    private refreshToken(): Observable<any> {
-        let endPoint = 'api/GetUserAccessToken';
-        return this._http.get(endPoint);
+    private refreshToken(): Observable<string> {
+        let endPoint = 'http://localhost:31354/Home/GetUserAccessToken';
+
+        this._http.get(endPoint).subscribe(
+            (response: string) => {
+                if (!AppUtils.isNullOrEmpty(response)) {
+                    this.tokenSubject.next(response);
+                    localStorage.setItem("access_token", response);
+                }
+            });
+
+        return Observable.of(this.tokenSubject.value).delay(200);
     }
 
-    private addRequestToken(request: HttpRequest<any>): HttpRequest<any> {
+    private addRequestToken(request: HttpRequest<any>, token: string): HttpRequest<any> {
         return request.clone({
             setHeaders: {
-                Authorization: `Bearer ${this.getToken()}` // refresh token
+                Authorization: `Bearer ${token}` // refresh token
             }
         });
     }
 
     private processFailedRequestes(rq: HttpRequest<any>, next: HttpHandler) {
         if (!this.isRefreshingToken) {
-            this.isRefreshingToken = true;
 
+            this.isRefreshingToken = true;
             this.tokenSubject.next(null);
 
-            return this.refreshToken().switchMap(
-                (newToken) => {
-                    if (AppUtils.isNullOrEmpty(newToken)) {
-                        this.tokenSubject.next(newToken);
-                        localStorage.setItem("access_token", newToken);
-                        return next.handle(this.addRequestToken(rq));
-                    }
-                });
+            return this.refreshToken().switchMap(newToken => {
+                if (!AppUtils.isNullOrEmpty(newToken)) {
+                    return next.handle(this.addRequestToken(rq, this.tokenSubject.value));
+                }
+
+                // Logout if needed
+            });
         } else {
-            return this.tokenSubject
-                .filter(token => token !== null)
-                .take(1)
-                .switchMap(token => {
-                    return next.handle(this.addRequestToken(rq));
-                });
+            return next.handle(this.addRequestToken(rq, this.tokenSubject.value));
         }
     }
 

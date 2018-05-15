@@ -40,13 +40,12 @@ namespace ff_words_site.Controllers
             return View("Login");
         }
 
-        [Route("api/GetUserAccessToken")]
         public async Task<IActionResult> GetUserAccessToken()
         {
             TokenClient tokenClient = new TokenClient("http://localhost:23465/connect/token", "client", "secrect");
             TokenResponse tokenResponse = await tokenClient.RequestClientCredentialsAsync("api");
 
-            return new JsonResult(tokenResponse.AccessToken);
+            return Json(tokenResponse.AccessToken);
         }
 
         public async Task<IActionResult> CallApiUsingClientCredentials()
