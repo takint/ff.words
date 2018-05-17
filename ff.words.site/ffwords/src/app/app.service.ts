@@ -91,7 +91,7 @@ export class JwtInterceptor implements HttpInterceptor {
                         case 401: // Unauthorize
                             return this.processFailedRequestes(request, next);
                         default:
-                            window.location.href = "Home/Login";
+                            return this.processFailedRequestes(request, next);
                     }
                 } else {
                     return Observable.throw(error);
