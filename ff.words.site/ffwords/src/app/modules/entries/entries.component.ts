@@ -13,6 +13,7 @@ export class EntriesComponent implements OnInit {
 
     public listPromise: Promise<any> = null;
     public entries: Array<EntryModel> = [];
+    public isInitDataLoaded: boolean = false;
 
     constructor(private service: EntriesService) {
         this.listPromise = this.service.getList();
@@ -20,6 +21,7 @@ export class EntriesComponent implements OnInit {
             .then(resolved => {
                 if (!AppUtils.isNullOrEmpty(resolved)) {
                     this.entries = resolved;
+                    this.isInitDataLoaded = true;
                 }
             })
             .catch(reject => console.log(reject));

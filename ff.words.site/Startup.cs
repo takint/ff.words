@@ -3,14 +3,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 
-namespace ff_words_site
+namespace ff.words.sites
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            IConfigurationBuilder builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -31,7 +37,7 @@ namespace ff_words_site
             {
                 options.SignInScheme = "Cookies";
 
-                options.Authority = "http://localhost:23465/";
+                options.Authority = Configuration["AuthServiceUrl"];
                 options.RequireHttpsMetadata = false;
 
                 options.ClientId = "client";

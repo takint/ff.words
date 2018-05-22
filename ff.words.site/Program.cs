@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ff_words_site
+namespace ff.words.sites
 {
     public class Program
     {

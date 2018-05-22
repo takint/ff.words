@@ -62,7 +62,7 @@
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = "http://localhost:23465";
+                    options.Authority = Configuration["AuthServiceUrl"];
                     options.RequireHttpsMetadata = false;
                     options.ApiName = "api";
                 });

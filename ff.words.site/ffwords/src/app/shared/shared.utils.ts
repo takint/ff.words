@@ -1,5 +1,5 @@
 export class AppUtils {
-    public static apiHost: string = 'http://localhost:52707/api/';
+    public static apiHost: string = window['ffwordsAppData'].apiEndpoint; //'http://277ce74a.ngrok.io/api/';
 
     public static isNullOrEmpty(input: any): boolean {
         // Null or empty

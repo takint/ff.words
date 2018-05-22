@@ -1,18 +1,27 @@
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ff_words_site.Controllers
+namespace ff.words.sites.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration _configuration;
+
+        public HomeController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var vm = AppViewModelBuilder();
+            return View(vm);
         }
 
         public IActionResult Login()
@@ -42,7 +51,7 @@ namespace ff_words_site.Controllers
 
         public async Task<IActionResult> GetUserAccessToken()
         {
-            TokenClient tokenClient = new TokenClient("http://localhost:23465/connect/token", "client", "secrect");
+            TokenClient tokenClient = new TokenClient($"{_configuration["AuthServiceUrl"]}/connect/token", "client", "secrect");
             TokenResponse tokenResponse = await tokenClient.RequestClientCredentialsAsync("api");
 
             return Json(tokenResponse.AccessToken);
@@ -66,5 +75,30 @@ namespace ff_words_site.Controllers
             ViewData["RequestId"] = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
             return View();
         }
+
+        private AppViewModel AppViewModelBuilder()
+        {
+            var model = new AngularAppViewModel();
+
+            model.ApiEndpoint = _configuration["ApiEndpointUrl"];
+            model.AuthServiceUrl = _configuration["AuthServiceUrl"];
+
+            return model;
+        }
+    }
+
+    public abstract class AppViewModel
+    { }
+
+    public class AngularAppViewModel : AppViewModel
+    {
+        public string ApiEndpoint { get; set; }
+
+        public string AuthServiceUrl { get; set; }
+    }
+
+    public class ReactAppViewModel : AppViewModel
+    {
+
     }
 }

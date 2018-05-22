@@ -92,3 +92,15 @@ bootstrap table theme
                 line-height: 27px;
                 padding: 0 3px;
             }
+
+/*Loading spinner*/
+.data-load-spinner {
+    position: absolute;
+    z-index: 1001;
+    height: 65px;
+    width: 200px;
+    left: 50%;
+    top: 15%;
+    background: url(assets/images/load-spinner.gif) no-repeat center center;
+    background-size: 100%;
+}

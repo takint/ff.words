@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Newtonsoft.Json;
+@using Newtonsoft.Json.Serialization;
+@model ff.words.sites.Controllers.AngularAppViewModel
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,6 +20,11 @@
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
 </head>
 <body class="cat__config--vertical cat__menu-left--visible cat__menu-left--colorful">
+    <script type="text/javascript">
+        var appData = '@Html.Raw(JsonConvert.SerializeObject(Model, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() }))';
+        window.ffwordsAppData = JSON.parse(appData);
+    </script>
+
     @RenderBody()
 
     <environment names="Development">
