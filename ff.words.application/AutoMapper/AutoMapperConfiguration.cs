@@ -4,12 +4,14 @@
 
     public class AutoMapperConfiguration
     {
-        public static MapperConfiguration RegisterMappings()
+        public static void RegisterMappings()
         {
-            return new MapperConfiguration(cfg =>
+            Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile(new MappingProfile());
             });
+
+            Mapper.AssertConfigurationIsValid();
         }
     }
 }

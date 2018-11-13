@@ -1,6 +1,7 @@
 ﻿namespace ff.words.ioc
 {
     using AutoMapper;
+    using ff.words.application.AutoMapper;
     using ff.words.application.Interfaces;
     using ff.words.application.Services;
     using ff.words.data.Context;
@@ -23,7 +24,9 @@
             // services.AddSingleton<IAuthorizationHandler, ClaimsRequirementHandler>(); ;
 
             // Application
-            services.AddSingleton(Mapper.Configuration);
+
+            //services.AddSingleton(Mapper.Configuration); Obsolete way
+            AutoMapperConfiguration.RegisterMappings();
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<IConfigurationProvider>(), sp.GetService));
 
             services.AddScoped<IEntryService, EntryService>();
