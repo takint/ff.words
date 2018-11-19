@@ -14,6 +14,8 @@
 
         public string FeaturedImage { get; set; }
 
+        public string ThumbnailImage { get; set; }
+
         [MaxLength(100)]
         public string AuthorName { get; set; }
 

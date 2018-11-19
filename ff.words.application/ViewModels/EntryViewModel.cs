@@ -18,6 +18,8 @@
 
         public string FeaturedImage { get; set; }
 
+        public string ThumbnailImage { get; set; }
+
         public string AuthorName { get; set; }
 
         public EntryStatus CurrentStatus { get; set; }

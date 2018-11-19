@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ff.words.data.Context;
 
 namespace ff.words.data.Migrations
 {
     [DbContext(typeof(FFWordsContext))]
-    partial class FFWordsContextModelSnapshot : ModelSnapshot
+    [Migration("20181118203840_AddPageSetting")]
+    partial class AddPageSetting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,8 +80,6 @@ namespace ff.words.data.Migrations
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<string>("ThumbnailImage");
 
                     b.Property<string>("Title")
                         .HasMaxLength(512);

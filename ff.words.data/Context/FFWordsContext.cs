@@ -14,8 +14,8 @@
         }
 
         DbSet<EntryModel> Entries { get; set; }
-
         DbSet<CategoryModel> Categories { get; set; }
+        DbSet<PageSettingModel> PageSettings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
